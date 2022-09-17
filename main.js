@@ -91,6 +91,7 @@ function makeBook(bookObject) {
 
     if (bookObject.isCompleted) {                                      // UNTUK COMPLETE (YANG SUDAH DIBACA)
         const incompleteButton = document.createElement('button');
+        incompleteButton.setAttribute('class', 'green');
         incompleteButton.append('Belum selesai dibaca');
 
         incompleteButton.addEventListener('click', function () {
@@ -98,9 +99,8 @@ function makeBook(bookObject) {
         });
 
         const deleteButton = document.createElement('button');
+        deleteButton.setAttribute('class', 'red');
         deleteButton.append ('Delete');
-        // deleteButton.classList.add('Delete').style.backgroundColor = 'red';
-        deleteButton.classList.add('inner');
 
         deleteButton.addEventListener('click', function () {
             removeBook(bookObject.id);
@@ -109,6 +109,7 @@ function makeBook(bookObject) {
         bookContain.append(incompleteButton, deleteButton);
         } else {                                                           // UNTUK INCOMPLETE (YANG BELUM DIBACA)
             const completeButton = document.createElement('button');
+            completeButton.setAttribute('class', 'green');
             completeButton.append('Selesai dibaca');
 
             completeButton.addEventListener("click", function () {
@@ -116,6 +117,7 @@ function makeBook(bookObject) {
             });
 
             const deleteButton = document.createElement('button');
+            deleteButton.setAttribute('class', 'red');
             deleteButton.append('Delete');
 
             deleteButton.addEventListener('click', function () {

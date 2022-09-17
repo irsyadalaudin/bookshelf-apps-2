@@ -169,3 +169,22 @@ main {
     background-color: darkred;
     color: white;
 }
+
+.red {
+    background-color: red;
+    color: white;
+    margin-left: 5px;
+    margin-bottom: 20px;    
+    border: none;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.green {
+    background-color: green;
+    color: white;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 3px;
+    padding: 3px;
+}
