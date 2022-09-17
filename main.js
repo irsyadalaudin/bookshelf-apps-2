@@ -64,9 +64,9 @@ document.addEventListener(RENDER_EVENT, function () {
         const bookElement = makeBook(bookItem);
 
         if (!bookItem.isCompleted) {
-            incompleteReadBOOKList.append(bookElement); // UNTUK COMPLETE   (BUKU YANG SUDAH DIBACA)
+            incompleteReadBOOKList.append(bookElement);                   // UNTUK COMPLETE   (BUKU YANG SUDAH DIBACA)
         } else {
-            completedReadBOOKList.append(bookElement);  // UNTUK INCOMPLETE (BUKU YANG BELUM DIBACA)
+            completedReadBOOKList.append(bookElement);                    // UNTUK INCOMPLETE (BUKU YANG BELUM DIBACA)
         }
     }
 });
@@ -89,9 +89,9 @@ function makeBook(bookObject) {
     bookShelfPlace.append(bookContain);
     bookShelfPlace.setAttribute('id', `book-${bookObject.id}`);
 
-    if (bookObject.isCompleted) {                                      // UNTUK COMPLETE (YANG SUDAH DIBACA)
+    if (bookObject.isCompleted) {                                         // UNTUK COMPLETE (YANG SUDAH DIBACA)
         const incompleteButton = document.createElement('button');
-        incompleteButton.setAttribute('class', 'green');
+        incompleteButton.setAttribute('class', 'green');                  // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
         incompleteButton.append('Belum selesai dibaca');
 
         incompleteButton.addEventListener('click', function () {
@@ -99,8 +99,8 @@ function makeBook(bookObject) {
         });
 
         const deleteButton = document.createElement('button');
-        deleteButton.setAttribute('class', 'red');
-        deleteButton.append ('Delete');
+        deleteButton.setAttribute('class', 'red');                        // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
+        deleteButton.append ('Hapus');
 
         deleteButton.addEventListener('click', function () {
             removeBook(bookObject.id);
@@ -109,7 +109,7 @@ function makeBook(bookObject) {
         bookContain.append(incompleteButton, deleteButton);
         } else {                                                           // UNTUK INCOMPLETE (YANG BELUM DIBACA)
             const completeButton = document.createElement('button');
-            completeButton.setAttribute('class', 'green');
+            completeButton.setAttribute('class', 'green');                 // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
             completeButton.append('Selesai dibaca');
 
             completeButton.addEventListener("click", function () {
@@ -117,8 +117,8 @@ function makeBook(bookObject) {
             });
 
             const deleteButton = document.createElement('button');
-            deleteButton.setAttribute('class', 'red');
-            deleteButton.append('Delete');
+            deleteButton.setAttribute('class', 'red');                      // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
+            deleteButton.append('Hapus');
 
             deleteButton.addEventListener('click', function () {
                 removeBook(bookObject.id);
@@ -135,7 +135,7 @@ function addBookToComplete(bookId) {
 
     if (bookTarget == null) return;
 
-    bookTarget.isCompleted = true; // MINDAHIN DARI RAK "Belum selesai dibaca" KE RAK "Sudah selesai dibaca"
+    bookTarget.isCompleted = true;                                        // MINDAHIN DARI RAK "Belum selesai dibaca" KE RAK "Sudah selesai dibaca"
     document.dispatchEvent(new Event(RENDER_EVENT));
     saveData();
 };
@@ -228,3 +228,16 @@ function loadDataFromStorage() {
 */ 
 
 /* UNTUK BIKIN LOCAL STORAGE */
+
+
+/* BUAT UPDATE GIT
+git status
+git add . (titik itu folder ini)
+git status (lagi setelah hijau)
+git commit -m "" (-m itu message,	di dalam string tulis messagenya)
+	(kalo cuma git commit aja, trus ketik pesannya
+	 trus, Press Esc and then type :wq to save and exit)
+git push
+git fetch
+git pull
+*/
