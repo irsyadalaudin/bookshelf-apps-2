@@ -216,6 +216,9 @@ function loadDataFromStorage() {
 };
 
 
+
+
+
 /* NOTES /*
 /* bookContain      : isi rak buku
    bookShelfPlace   : rak buku nya
