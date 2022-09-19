@@ -107,9 +107,9 @@ function makeBook(bookObject) {
         });
 
         bookContain.append(incompleteButton, deleteButton);
-        } else {                                                           // UNTUK INCOMPLETE (YANG BELUM DIBACA)
+        } else {                                                          // UNTUK INCOMPLETE (YANG BELUM DIBACA)
             const completeButton = document.createElement('button');
-            completeButton.setAttribute('class', 'green');                 // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
+            completeButton.setAttribute('class', 'green');                // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
             completeButton.append('Selesai dibaca');
 
             completeButton.addEventListener("click", function () {
@@ -117,7 +117,7 @@ function makeBook(bookObject) {
             });
 
             const deleteButton = document.createElement('button');
-            deleteButton.setAttribute('class', 'red');                      // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
+            deleteButton.setAttribute('class', 'red');                    // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
             deleteButton.append('Hapus');
 
             deleteButton.addEventListener('click', function () {
