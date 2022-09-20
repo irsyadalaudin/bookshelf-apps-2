@@ -180,6 +180,7 @@ main {
     padding: 3px;
 }
 
+
 .green {
     background-color: green;
     color: white;
@@ -187,4 +188,16 @@ main {
     border: none;
     border-radius: 3px;
     padding: 3px;
+}
+
+.red:hover {
+    background-color: maroon;
+}
+
+.green:hover {
+    background-color: darkgreen;
+}
+
+.red:hover, .green:hover {
+    cursor: pointer;
 }
