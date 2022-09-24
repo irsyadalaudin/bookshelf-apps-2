@@ -22,12 +22,12 @@ function addBook() {
 
     document.dispatchEvent(new Event(RENDER_EVENT));
     saveData();
-}
+};
 
 
 function generateId() {
     return +new Date();
-}
+};
 
 
 function generateBookObject(id, title, author, year, isCompleted) {
@@ -38,7 +38,7 @@ function generateBookObject(id, title, author, year, isCompleted) {
         year,
         isCompleted,
     };
-}
+};
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -57,7 +57,7 @@ document.addEventListener(RENDER_EVENT, function () {
     const incompleteReadBOOKList = document.getElementById('incompleteBookshelfList');
     incompleteReadBOOKList.innerHTML = '';
 
-    const completedReadBOOKList = document.getElementById('completeBookshelfList');
+    const completedReadBOOKList = document.getElementById('completeBookshelfList');         /* SALAH MANGGIL ID, JADINYA:  main.js:51 Uncaught TypeError: Cannot set properties of null (setting 'innerHTML') */
     completedReadBOOKList.innerHTML = '';
 
     for (const bookItem of books) {
@@ -84,10 +84,10 @@ function makeBook(bookObject) {
 
     const bookContain = document.createElement('article');
     bookContain.append(titleBook, authorBook, timeStamp);
-
-    const bookShelfPlace = document.createElement('article');
+    bookContain.setAttribute('id', `book-${bookObject.id}`);
+    /*const bookShelfPlace = document.createElement('article');             // NANTI DIPANGGIL PAKE document.querySelectorAll (DI KOLOM 183-194)
     bookShelfPlace.append(bookContain);
-    bookShelfPlace.setAttribute('id', `book-${bookObject.id}`);
+    bookShelfPlace.setAttribute('id', `book-${bookObject.id}`);*/
 
     if (bookObject.isCompleted) {                                         // UNTUK COMPLETE (YANG SUDAH DIBACA)
         const incompleteButton = document.createElement('button');
@@ -96,36 +96,7 @@ function makeBook(bookObject) {
         incompleteButton.addEventListener('click', function () {
             addBookToIncomplete(bookObject.id);
         });
-
-
-        const editButton = document.createElement('button');
-        editButton.setAttribute('class', 'brown');
-        editButton.append('edit buku');
-        editButton.addEventListener('click', function () {
-            const inputSection = document.querySelector('.inputSection');
-            const bookId = this.closest('.book_item').id;
-            const inputBookShelf = document.getElementById('inputBook');
-
-            const bookItem = findBook(Number(bookId));
-
-            const textTitle = document.getElementById('inputBookTitle');
-            const textAuthor = document.getElementById('inputBookAuthor');
-            const textYear = document.getElementById('inputBookYear');
-            const isCompleted = document.getElementById('inputBookIsComplete');
-
-            textTitle.value = bookItem.title;
-            textAuthor.value = bookItem.title;
-            textYear.value = bookItem.tittle;
-            isCompleted.checked = bookItem.tittle;
-            inputBookShelf.addEventListener('submit', function (event) {
-                event.preventDefault();
-                editBook(bookId);
-                inputSection.classList.remove('inputActive');
-            });
-            inputSection.classList.add('inputActive');
-        });
-
-
+        
         const deleteButton = document.createElement('button');
         deleteButton.setAttribute('class', 'red');                        // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
         deleteButton.append ('Hapus');
@@ -133,7 +104,8 @@ function makeBook(bookObject) {
             removeBook(bookObject.id);
         });
 
-        bookContain.append(incompleteButton,editButton, deleteButton);
+        bookContain.append(incompleteButton, deleteButton);
+
         } else {                                                          // UNTUK INCOMPLETE (YANG BELUM DIBACA)
             const completeButton = document.createElement('button');
             completeButton.setAttribute('class', 'green');                // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
@@ -142,15 +114,6 @@ function makeBook(bookObject) {
                 addBookToComplete(bookObject.id);
             });
 
-            
-            const editButton = document.createElement('button');
-            editButton.setAttribute('class', 'brown');
-            editButton.append('edit buku');
-            editButton.addEventListener('click', function () {
-                editBook(bookObject.id);
-            });
-
-
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'red');                    // BUAT NAMBAH CLASS ATAU ID UNTUK DI TAMBAHIN STYLE DI CSS
             deleteButton.append('Hapus');
@@ -158,7 +121,7 @@ function makeBook(bookObject) {
                 removeBook(bookObject.id);
             });
 
-            bookContain.append(completeButton,editButton, deleteButton);
+            bookContain.append(completeButton, deleteButton);
     }
     return bookContain;
 };
@@ -175,16 +138,6 @@ function addBookToComplete(bookId) {
 };
 
 
-function findBook(bookId) {
-    for (const bookItem of books) {
-        if (bookItem.id === bookId) {
-        return bookItem;
-        }
-    }
-    return null;
-};
-
-
 function addBookToIncomplete(bookId) {
     const bookTarget = findBook(bookId);
     
@@ -194,6 +147,17 @@ function addBookToIncomplete(bookId) {
     document.dispatchEvent(new Event(RENDER_EVENT));
     saveData();
 };
+
+
+function findBook(bookId) {
+    for (const bookItem of books) {
+        if (bookItem.id === bookId) {
+        return bookItem;
+        }
+    }
+    return null;
+};
+
 
 function removeBook(bookId) {
     const bookTarget = findBookIndex(bookId);
@@ -205,19 +169,21 @@ function removeBook(bookId) {
     saveData();
 };
 
+
 function findBookIndex(bookId) {
-    for (const index in books) {
-        if (books[index].id === bookId) {
-            return index;
+    for (const bookItem in books) {
+        if (books[bookItem].id === bookId) {
+            return bookItem;
         }
     }
-};
+    return -1;
+};  
 
-/*
+
 document.getElementById('searchBook').addEventListener('submit', function (event) {
     event.preventDefault();
     const searchBook = document.getElementById('searchBookTitle').value.toLowerCase();
-    const bookList = document.querySelectorAll('.book_item > h3');
+    const bookList = document.querySelectorAll('article h3');                            // MANGGIL article DI KOLOM 88                         
     for (const book of bookList) {
         if(book.innerText.toLowerCase().includes(searchBook)) {
             book.parentElement.style.display = 'block';
@@ -226,7 +192,23 @@ document.getElementById('searchBook').addEventListener('submit', function (event
         }
     }
 });
+
+
+/*
+document.getElementById("searchBook").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const searchBook = document.getElementById("searchBookTitle").value.toLowerCase();
+    const bookList = document.querySelectorAll("article h3");
+    for (const book of bookList) {
+      if (book.innerText.toLowerCase().includes(searchBook)) {
+        book.parentElement.style.display = "block";
+      } else {
+        book.parentElement.style.display = "none";
+      }
+    }
+  });
 */
+
 
 function saveData() {
     if (isStorageExist()) {
